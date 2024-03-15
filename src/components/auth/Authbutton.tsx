@@ -1,5 +1,7 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Button } from "../ui/button";
+import { DoorClosed, DoorOpen } from "lucide-react";
+
 
 export default function AuthButton(){
     const {data:session} = useSession();
@@ -8,17 +10,17 @@ export default function AuthButton(){
         <>
             {
                 user ? (
-                    <Button onClick={async () => {
+                    <Button className="gap-2" onClick={async () => {
                         await signOut()
                     }}>
-                        Logout
+                        Logout <DoorOpen/>
                     </Button>
                 ): (
                     <>
-                        <Button onClick={async () => {
+                        <Button className="gap-2" onClick={async () => {
                             await signIn('google');
                         }}>
-                            Login
+                            Login <DoorClosed/>
                         </Button>
                     </>
                 )

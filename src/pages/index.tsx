@@ -9,25 +9,25 @@ const videoConstraints = {
 };
 
 function App() {
-  const webcamRef = useRef(null);
-  const [photoLocation, setPhotoLocation] = useState(null); // Add this line
+  // const webcamRef = useRef(null);
+  // const [photoLocation, setPhotoLocation] = useState(null); // Add this line
 
   // const capture = useCallback(() => {
     
   // }, [webcamRef]);
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      if (webcamRef.current) {
-        //@ts-ignore
-        const imageSrc = webcamRef.current.getScreenshot();
-        setPhotoLocation(imageSrc); // Update the photo location
-      }
-    },1000/30)
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     if (webcamRef.current) {
+  //       //@ts-ignore
+  //       const imageSrc = webcamRef.current.getScreenshot();
+  //       setPhotoLocation(imageSrc); // Update the photo location
+  //     }
+  //   },1000/30)
 
-    return () => {
-      clearInterval(intervalId);
-    }
-  })
+  //   return () => {
+  //     clearInterval(intervalId);
+  //   }
+  // })
 
   return (
     // <>

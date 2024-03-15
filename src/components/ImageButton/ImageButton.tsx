@@ -7,6 +7,8 @@ import { z } from 'zod';
 import { CldUploadButton, CloudinaryUploadWidgetResults } from "next-cloudinary";
 import { useState } from 'react';
 import { set } from 'date-fns';
+import { Textarea } from '../ui/textarea';
+
 
 export default function ImageAnnotation(){
   const submitqna = api.imageRouter.annotateImage.useMutation({
@@ -42,11 +44,19 @@ export default function ImageAnnotation(){
 
     
     return(
-        <>{
-          JSON.stringify(result) ?? ''}
-          <CldUploadButton uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_PRESET} onUpload={handleUpload}>
-            Upload Image
+        
+          <div className='gap-2'>
+          {
+          <Textarea className='pointer-events-null'>
+            {JSON.stringify(result) ?? ''}
+          </Textarea>
+          
+        }
+          <CldUploadButton uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_PRESET} onUpload={handleUpload} className='mt-10 text-black bg-white px-4 py-2 rounded-lg'>
+          Upload Image
           </CldUploadButton>
-          </>
+          </div>
+
+          
     )
 }
