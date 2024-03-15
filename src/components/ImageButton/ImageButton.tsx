@@ -7,6 +7,7 @@ import { z } from 'zod';
 import { CldUploadButton, CloudinaryUploadWidgetResults } from "next-cloudinary";
 import { useState } from 'react';
 import { set } from 'date-fns';
+import { useSession } from 'next-auth/react';
 
 
 export default function ImageAnnotation(){
@@ -39,6 +40,8 @@ export default function ImageAnnotation(){
       await submit(imageUrl);
     }
   };
+
+  const {data:session} = useSession();
    
 
 
@@ -58,15 +61,20 @@ export default function ImageAnnotation(){
         //   </div>
         <div className='flex w-full justify-center'>
           {
-            result.length === 0 && (
+            !session?.user && (
+              <h1 className='text-4xl font-semibold text-white'>Login to use this feature</h1>
+            )
+          }
+          {
+            session?.user && result.length === 0 && (
               <CldUploadButton uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_PRESET} onUpload={handleUpload} className='mt-10 text-white rounded-lg'>
           <div className='w-[75vw] h-[20rem] border-[1px] border-white rounded-lg flex justify-center items-center bg-slate-500 opacity-50 backdrop-blur-xl'>
-            Click or drag and drop an image
+            Click here to choose or drop an image
           </div>
           </CldUploadButton>
             )
           }{
-            result.length > 0 && (
+            session?.user && result.length > 0 && (
               <>
                 <div className='flex flex-col gap-6 justify-start items-center w-full'>
                   <h3 className='text-4xl font-semibold text-left'>This image contains</h3>
